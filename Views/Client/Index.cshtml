@@ -1,0 +1,50 @@
+﻿@model List<WMK_Web.Models.Client>
+
+@{
+    ViewData["Title"] = "Lista klientów";
+}
+
+<h1>Lista klientów</h1>
+<p>
+    <a asp-action="Create">Dodaj</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label asp-for="First().Id"></label>
+            </th>
+            <th>
+                <label asp-for="First().Name"></label>
+            </th>
+            <th>
+                <label asp-for="First().LastUsed"></label>
+            </th>
+            <th>
+                Opcje
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.LastUsed
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Model.First().Id">Edycja</a> | 
+                    <a asp-action="Details" asp-route-id="@Model.First().Id">Szczegóły</a> | 
+                    <a asp-action="Archive" asp-route-id="@Model.First().Id">Archiwizuj</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
