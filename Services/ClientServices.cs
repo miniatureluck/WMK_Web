@@ -5,12 +5,12 @@ namespace WMK_Web.Services
 {
     public class ClientServices
     {
-        public int indexCounter = 2;
+        public int indexCounter = _clientsDataBase.Count + 1;
         private static List<Client> _clientsDataBase = new List<Client>
         {
-            new Client() { Id = 0, Name = "Marek Zegarek", Sessions = _sessions1, LastUsed = DateTime.Now.AddDays(-1)},
-            new Client() { Id = 1, Name = "Stefcia Klepcia", Sessions = _sessions2, LastUsed = DateTime.Now.AddDays(-3)},
-            new Client() { Id = 2, Name = "Ziutek Bomba", Sessions = _sessions3, LastUsed = DateTime.Now.AddDays(-2)}
+            new Client() { Id = 1, Name = "Marek Zegarek", LastUsed = DateTime.Now.AddDays(-1)},
+            new Client() { Id = 2, Name = "Stefcia Klepcia", LastUsed = DateTime.Now.AddDays(-3)},
+            new Client() { Id = 3, Name = "Ziutek Bomba", LastUsed = DateTime.Now.AddDays(-2)}
         };
 
         private static List<Session> _sessions1 = new List<Session>
@@ -33,7 +33,7 @@ namespace WMK_Web.Services
         };
         public List<Client> GetAll()
         {
-            var list = _clientsDataBase.OrderByDescending(x=> x.LastUsed).ToList();
+            var list = _clientsDataBase.OrderByDescending(x => x.LastUsed).ToList();
             return list;
         }
         public Client GetById(int id)
@@ -42,9 +42,13 @@ namespace WMK_Web.Services
         }
         public void AddNew(Client client)
         {
-            indexCounter++;
             client.Id = indexCounter;
+            client.Created = DateTime.Now;
+            client.LastUsed = DateTime.Now;
             _clientsDataBase.Add(client);
+
         }
     }
+
+
 }

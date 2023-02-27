@@ -7,6 +7,7 @@
 <h1>Lista klientów</h1>
 <p>
     <a asp-action="Create">Dodaj</a>
+
 </p>
 <table class="table">
     <thead>
@@ -16,6 +17,9 @@
             </th>
             <th>
                 <label asp-for="First().Name"></label>
+            </th>
+            <th>
+                <label asp-for="First().Created"></label>
             </th>
             <th>
                 <label asp-for="First().LastUsed"></label>
@@ -34,6 +38,9 @@
                 </td>
                 <td>
                     @item.Name
+                </td>
+                <td>
+                    @item.Created
                 </td>
                 <td>
                     @item.LastUsed

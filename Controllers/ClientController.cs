@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using WMK_Web.Models;
 using WMK_Web.Services;
 
 namespace WMK_Web.Controllers
@@ -22,22 +25,33 @@ namespace WMK_Web.Controllers
         // GET: ClientController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var client = _clientServices.GetById(id);
+            return View(client);
         }
 
         // GET: ClientController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            var client = _clientServices.GetById(id);
+            return View(client);
         }
 
         // POST: ClientController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Client client)
         {
+            //SqlConnection sqlCon = new SqlConnection("Server = localhost; Database = wmkancelaria; User Id = joanna; Password = natan");
             try
             {
+                _clientServices.AddNew(client);
+                //SqlCommand sqlCmd = new SqlCommand("Clients", sqlCon);
+                //sqlCmd.CommandType = CommandType.StoredProcedure;
+                //sqlCmd.Parameters.AddWithValue("Name", client.Name);
+                //sqlCmd.Parameters.AddWithValue("LastUsed", DateTime.Now);
+                //sqlCon.Open();
+                //sqlCmd.ExecuteNonQuery();
+                //sqlCon.Close();
                 return RedirectToAction(nameof(Index));
             }
             catch
